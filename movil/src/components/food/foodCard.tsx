@@ -4,14 +4,15 @@ import { View, Text, TouchableOpacity } from 'react-native';
 type Props = {
   nombre: string;
   descripcion?: string;
-  calorias?: number;
-  onPress: () => void;
+  extraInfo?: string;   // opcional, ej: hora o estado
+  onPress?: () => void;
 };
 
-export default function FoodCard({ nombre, descripcion, calorias, onPress }: Props) {
+export default function FoodCard({ nombre, descripcion, extraInfo, onPress }: Props) {
   return (
     <TouchableOpacity
       onPress={onPress}
+      disabled={!onPress} // si no hay onPress, no es clickeable
       style={{
         flexDirection: 'row',
         borderWidth: 1,
@@ -47,9 +48,9 @@ export default function FoodCard({ nombre, descripcion, calorias, onPress }: Pro
           </Text>
         )}
 
-        {calorias !== undefined && (
+        {extraInfo && (
           <Text style={{ fontSize: 13, color: '#999' }}>
-            Calorías: {calorias}
+            {extraInfo}
           </Text>
         )}
       </View>

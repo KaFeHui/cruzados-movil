@@ -4,9 +4,9 @@ export interface IMeal extends Document {
   _id?: mongoose.Types.ObjectId;
   nombre: string;        // Ej: "Desayuno", "Almuerzo", "Cena", "Colación"
   descripcion?: string;  // Texto opcional
-  comidas? : mongoose.Types.ObjectId[];
-  asignadoPor? : mongoose.Types.ObjectId[]; // deberia haber 2 usuarios, nutri y paciente.
-  asignadoA? : mongoose.Types.ObjectId[]; // deberia haber 2 usuarios, nutri y paciente.
+  comidas?: mongoose.Types.ObjectId[];
+  asignadoPor?: mongoose.Types.ObjectId[]; // deberia haber 2 usuarios, nutri y paciente.
+  asignadoA?: mongoose.Types.ObjectId[]; // deberia haber 2 usuarios, nutri y paciente.
 }
 
 const MealSchema = new Schema<IMeal>(

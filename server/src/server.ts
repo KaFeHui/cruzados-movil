@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import { connectDB } from "./config/db";
 import app from "./app";
 
-dotenv.config();
+dotenv.config({ quiet: false });
 
 const PORT = process.env.PORT || 4000;
 const URL = process.env.URL || "http://localhost";

@@ -11,6 +11,8 @@ import { FoodProvider } from './src/context/food.context';
 import FoodsStack from './src/components/food/foodStack';
 import SlideBar from './src/components/slideBar';
 import CreateFood from './src/components/food/createFood.component';
+import MealStack from './src/components/meal/mealStack';
+import { MealProvider } from './src/context/meal.context';
 
 const Drawer = createDrawerNavigator();
 
@@ -27,18 +29,17 @@ export default function App() {
   return (
     <SafeAreaProvider>
       <FoodProvider>
-        <NavigationContainer>
-          <Drawer.Navigator
-            initialRouteName="Home"
-            screenOptions={{ headerShown: false }}
-            drawerContent={() => <SlideBar />}
-          >
-            <Drawer.Screen name="Home" component={withHeader(Home)} />
-            <Drawer.Screen name="Profile" component={withHeader(Profile)} />
-            <Drawer.Screen name="Alimentos" component={FoodsStack} />
-            <Drawer.Screen name="Ajustes" component={withHeader(ConfigurationScreen)} />
-          </Drawer.Navigator>
-        </NavigationContainer>
+        <MealProvider>
+          <NavigationContainer>
+            <Drawer.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }} drawerContent={() => <SlideBar />}>
+              <Drawer.Screen name="Home" component={withHeader(Home)} />
+              <Drawer.Screen name="Profile" component={withHeader(Profile)} />
+              <Drawer.Screen name="Alimentos" component={FoodsStack} />
+              <Drawer.Screen name="Comidas" component={MealStack} />
+              <Drawer.Screen name="Ajustes" component={withHeader(ConfigurationScreen)} />
+            </Drawer.Navigator>
+          </NavigationContainer>
+        </MealProvider>
       </FoodProvider>
     </SafeAreaProvider>
   );

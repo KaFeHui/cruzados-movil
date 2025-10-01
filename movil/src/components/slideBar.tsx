@@ -32,6 +32,18 @@ const SlideBar = () => {
         <Text style={{ fontSize: 18 }}>Alimentos</Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        style={{ padding: 16, borderBottomWidth: 1, borderBottomColor: '#eee' }}
+        onPress={() =>
+          navigation.reset({
+            index: 0,
+            routes: [{ name: 'Comidas' }],
+          })
+        }
+      >
+        <Text style={{ fontSize: 18 }}>Comidas</Text>
+      </TouchableOpacity>
+
     </View>
   );
 };

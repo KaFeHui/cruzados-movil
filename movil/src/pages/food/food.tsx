@@ -25,7 +25,6 @@ export default function Foods() {
             Lista de Comidas
           </Text>
 
-          {/* 🔎 Buscador */}
           <TextInput
             placeholder="Buscar comida por nombre o tipo..."
             value={search}
@@ -40,19 +39,15 @@ export default function Foods() {
             }}
           />
 
-          {/* Loading y errores */}
           {loading && <ActivityIndicator size="large" color="#007AFF" />}
           {error && <Text style={{ color: 'red' }}>{error}</Text>}
 
-          {/* Lista de comidas */}
           {filtered.map((food) => {
-            // Calorías totales sumando ingredientes
             const caloriasTotales = food.ingredientes?.reduce(
               (acc, ing) => acc + (ing.calorias || 0),
               0
             );
 
-            // Ingredientes resumidos
             const ingredientesTexto = food.ingredientes
               ?.map((ing) => ing.nombre)
               .join(', ');
@@ -62,7 +57,6 @@ export default function Foods() {
                 key={food._id}
                 nombre={food.nombre}
                 descripcion={`Estado: ${food.estado} | Hora: ${food.horaEvento}\nIngredientes: ${ingredientesTexto}`}
-                calorias={caloriasTotales}
                 onPress={() => navigation.navigate('FoodDetail', { id: food.id })}
               />
             );

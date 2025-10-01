@@ -5,8 +5,6 @@ import { IMeal, Meal } from "../models/meal.model";
 
 export class FoodService {
     static async createFood(data: Partial<IFood & { meal: string }>): Promise<IFood> {
-        console.log("Datos recibidos para crear comida:", data);
-
         if (!data.nombre || !data.porcion || !data.horaEvento || !data.meal) {
             throw { status: 400, message: "Faltan campos obligatorios" };
         }
@@ -47,7 +45,13 @@ export class FoodService {
         return Food.find({ state: true }).populate('ingredientes', "nombre calorias proteinas grasas carbohidratos").populate("meal", "nombre");
     }
 
-    static async getFoodById(id: number): Promise<IFood | null> {
+    static async getFoodById(id: string): Promise<IFood | null> {
+        const food = await Food.findOne({ id, state: true }).populate('ingredientes').populate("meal", "nombre");
+        if (!food) throw { status: 404, message: 'Comida no encontrada' };
+        return food;
+    }
+
+    static async getFoodByNumberId(id: number): Promise<IFood | null> {
         const food = await Food.findOne({ id, state: true }).populate('ingredientes').populate("meal", "nombre");
         if (!food) throw { status: 404, message: 'Comida no encontrada' };
         return food;

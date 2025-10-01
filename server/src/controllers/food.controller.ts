@@ -30,7 +30,17 @@ export class FoodController {
     static async getById(req: Request, res: Response) {
         try {
             const id = parseInt(req.params.id);
-            const food = await FoodService.getFoodById(id);
+            const food = await FoodService.getFoodById(id.toString());
+            return res.json(food);
+        } catch (err: any) {
+            return res.status(err.status || 500).json({ error: err.message });
+        }
+    
+    }
+    static async getByNumId(req: Request, res: Response) {
+        try {
+            const id = parseInt(req.params.id);
+            const food = await FoodService.getFoodByNumberId(id);
             return res.json(food);
         } catch (err: any) {
             return res.status(err.status || 500).json({ error: err.message });

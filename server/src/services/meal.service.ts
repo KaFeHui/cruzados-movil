@@ -9,11 +9,11 @@ export const createMeal = async (data: Partial<IMeal>): Promise<IMeal> => {
 }
 
 export const getAllMeals = async (): Promise<IMeal[]> => {
-    return Meal.find();
+    return Meal.find().populate('comidas');
 }
 
 export const getMealById = async (id: string): Promise<IMeal | null> => {
-    const meal = await Meal.findById(id);
+    const meal = await Meal.findById(id).populate('comidas');
     if (!meal) throw { status: 404, message: 'Meal no encontrado' };
     return meal;
 }

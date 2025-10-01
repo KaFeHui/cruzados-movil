@@ -36,7 +36,6 @@ export default function App() {
             <Drawer.Screen name="Home" component={withHeader(Home)} />
             <Drawer.Screen name="Profile" component={withHeader(Profile)} />
             <Drawer.Screen name="Alimentos" component={FoodsStack} />
-            <Drawer.Screen name="CreateFood" component={withHeader(CreateFood)} />
             <Drawer.Screen name="Ajustes" component={withHeader(ConfigurationScreen)} />
           </Drawer.Navigator>
         </NavigationContainer>

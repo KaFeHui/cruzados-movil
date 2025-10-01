@@ -1,8 +1,9 @@
 import axios from 'axios';
-import { EXPO_BACKEND } from '@env';
-console.log('Backend URL:', EXPO_BACKEND);
+import { serverUrl } from './env';
+
+console.log('Backend URL:', serverUrl);
 const api = axios.create({
-    baseURL: EXPO_BACKEND,
+    baseURL: serverUrl,
     headers: {
         'Content-Type': 'application/json',
     },

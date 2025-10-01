@@ -51,7 +51,9 @@ export const FoodProvider = ({ children }: { children: ReactNode }) => {
   const addFood = async (data: Partial<Food>) => {
     try {
       setLoading(true);
+      console.log("Datos para crear comida:", data);
       const newFood = await createFood(data);
+      console.log("Comida creada:", newFood);
       setFoods((prev) => [...prev, newFood]);
     } catch (err: any) {
       setError(err.message || 'Error al crear comida');

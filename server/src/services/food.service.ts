@@ -1,38 +1,50 @@
+import mongoose from "mongoose";
 import { Food, IFood } from "../models/food.model";
 import { Ingredient } from "../models/ingredents.model";
+import { IMeal, Meal } from "../models/meal.model";
 
 export class FoodService {
-    static async createFood(data: Partial<IFood>): Promise<IFood> {
-        if (!data.nombre || !data.meal || !data.porcion || !data.horaEvento) {
-            throw { status: 400, message: 'Faltan campos obligatorios' };
+    static async createFood(data: Partial<IFood & { meal: string }>): Promise<IFood> {
+        console.log("Datos recibidos para crear comida:", data);
+
+        if (!data.nombre || !data.porcion || !data.horaEvento || !data.meal) {
+            throw { status: 400, message: "Faltan campos obligatorios" };
         }
 
         if (data.ingredientes && data.ingredientes.length > 0) {
             const count = await Ingredient.countDocuments({ _id: { $in: data.ingredientes } });
             if (count !== data.ingredientes.length) {
-                throw { status: 400, message: 'Alguno de los ingredientes no existe' };
+                throw { status: 400, message: "Alguno de los ingredientes no existe" };
             }
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(data.meal)) {
+            throw { status: 400, message: "El ID de meal no es válido" };
+        }
+
+        const mealExists = await Meal.findById(data.meal);
+        if (!mealExists) {
+            throw { status: 400, message: "El meal especificado no existe" };
         }
 
         const food = new Food(data);
         await food.save();
 
-        const savedFood = await Food.findById(food._id)
-            .populate("meal", "nombre")  // solo campo nombre
-            .populate("ingredientes", "nombre calorias proteinas grasas carbohidratos")
-            .populate("asignadoPor", "nombre email")
-            .populate("asignadoA", "nombre email");
+        // mealExists.comidas = mealExists.comidas || [];
+        // mealExists.comidas.push(food._id as mongoose.Types.ObjectId);
+        // await mealExists.save();
 
+        const savedFood = await Food.findById(food._id).populate("ingredientes");
         if (!savedFood) {
-            throw { status: 500, message: 'Error al crear la comida' };
+            throw { status: 500, message: "Error al crear la comida" };
         }
 
         return savedFood;
-
     }
 
+
     static async getAllFoods(): Promise<IFood[]> {
-        return Food.find({ state: true }).populate('ingredientes',  "nombre calorias proteinas grasas carbohidratos").populate("meal", "nombre");
+        return Food.find({ state: true }).populate('ingredientes', "nombre calorias proteinas grasas carbohidratos").populate("meal", "nombre");
     }
 
     static async getFoodById(id: number): Promise<IFood | null> {

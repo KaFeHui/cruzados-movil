@@ -4,12 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import { useFood } from '../../context/food.context';
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios';
+import { serverUrl } from '../../config/env';
 
 export default function CreateFood() {
     const { addFood, ingredientesSeleccionados, ingredientes } = useFood();
     const navigation = useNavigation<any>();
 
-    const [meal, setMeal] = useState('');
+    const [meal, setMeal] = useState('a');
     const [nombre, setNombre] = useState('');
     const [porcion, setPorcion] = useState('');
     const [horaEvento, setHoraEvento] = useState('');
@@ -33,10 +34,9 @@ export default function CreateFood() {
     useEffect(() => {
         const fetchMeals = async () => {
             try {
-                const res = await axios.get(`${process.env.EXPO_BACKEND}/api/meals`);
+                const res = await axios.get(`${serverUrl}/api/meals`);
                 console.log("Meals API:", res.data);
 
-                // asegúrate de que sea array
                 const mealsData = Array.isArray(res.data) ? res.data : res.data.data || [];
                 setMeals(mealsData);
             } catch (err) {

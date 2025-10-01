@@ -1,36 +1,31 @@
 import mongoose, { Schema, Document } from 'mongoose';
 import { Counter } from './counter';
 import { IMeal } from './meal.model';
-import { IUser } from './user.model';
 
 export interface IFood extends Document {
+    _id: mongoose.Types.ObjectId;
     id: number;
     nombre: string;
-    meal: IMeal // almuerzo o desayno etc
     porcion: number;
     foto?: string;
     horaEvento: string; // HH:mm
-    ingredientes: mongoose.Types.ObjectId[]; // referencias a Ingredients
+    ingredientes: mongoose.Types.ObjectId[];
     estado: 'Programado' | 'Pendiente' | 'Realizado' | 'Omitido'
-    asignadoPor?: IUser // nutri
-    asignadoA?: IUser // paciente
     state: boolean;
     createdAt: Date;
     updatedAt: Date;
+    meal: IMeal
 }
 
 const FoodSchema = new Schema<IFood>(
     {
         id: { type: Number, unique: true },
         nombre: { type: String, required: true, trim: true },
-        meal: { type: Schema.Types.ObjectId, ref: 'Meal', required: true },
         porcion: { type: Number, required: true },
         horaEvento: { type: String, required: true },
         foto: { type: String },
+        meal: { type: Schema.Types.ObjectId, ref: 'Meal', required: true },
         ingredientes: [{ type: Schema.Types.ObjectId, ref: 'Ingredient' }],
-        asignadoPor: { type: Schema.Types.ObjectId, ref: 'User', required: false },
-        asignadoA: { type: Schema.Types.ObjectId, ref: 'User', required: false },
-
         estado: {
             type: String,
             default: 'Pendiente',

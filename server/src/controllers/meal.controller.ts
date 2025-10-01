@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { createMeal, getAllMeals } from "../services/meal.service";
+import { createMeal, getAllMeals, getMealById } from "../services/meal.service";
 
 export class MealController {
     static async create(req: Request, res: Response) {
@@ -17,6 +17,16 @@ export class MealController {
             return res.json({ message: "Comidas encontradas", data: meals });
         } catch {
             return res.status(500).json({ error: 'Error al obtener comidas' });
+        }
+    }
+
+    static async getById(req: Request, res: Response) {
+        try {
+            const id = req.params.id;
+            const meal = await getMealById(id);
+            return res.json({ message: "Comida encontrada", data: meal });
+        } catch (err: any) {
+            return res.status(err.status || 500).json({ error: err.message });
         }
     }
 }

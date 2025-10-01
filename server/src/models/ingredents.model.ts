@@ -5,15 +5,43 @@ export interface IIngredient extends Document {
     id: number;
     nombre: string;
     descripcion?: string;
-    cantidad: number;
-    tipoPeso: string /*'kg' | 'gr' | 'lb' | "oz" | "mg" | "ml" | "l" | "taza" | "cda" | "cdta" | 'und';*/,
-    calorias: number;
-    carbohidratos: number;
-    proteinas: number;
-    grasas: number;
-    fibra: number;
-    azucar: number;
-    sodio: number;
+    tipoPeso?: string /*'gr' "ml"*/,
+    cantidad?: number;
+    calorias?: number; // energia
+    humedad?: number;
+    cenizas?: number
+    proteinas?: number;
+    hdc?: number // hidratos de carbono
+    azucar?: number;
+    fibra?: number;
+    lipidos?: number;
+    acSaturados?: number;
+    acMonoinsaturados?: number;
+    acPoliinsaturados?: number;
+    colesterol?: number;
+    vitA?: number;
+    vitC?: number;
+    vitD?: number;
+    vitE?: number;
+    vitK?: number;
+    vitB1?: number;
+    vitB2?: number;
+    niacina?: number;
+    vitB6?: number;
+    ac?: number //pantotenico mg
+    vitB12?: number;
+    Folatos?: number;
+    sodio?: number;
+    potasio?: number;
+    calcio?: number;
+    fosforo?: number;
+    magnesio?: number;
+    hierro?: number;
+    zinc?: number;
+    cobre?: number;
+    selenio?: number;
+    carbohidratos?: number;
+    grasas?: number;
     createdAt: Date;
     updatedAt: Date;
     state?: boolean;
@@ -25,7 +53,7 @@ const IngredientSchema = new Schema<IIngredient>(
         nombre: { type: String, required: true, trim: true },
         descripcion: { type: String, trim: true },
         cantidad: { type: Number, required: true },
-        tipoPeso: { type: String, /*enum: ['kg', 'gr', 'lb', "oz", "mg", "ml", "l", "taza", "cda", "cdta", 'und'],*/ required: true },
+        tipoPeso: { type: String, required: true },
         // Valores nutricionales
         calorias: { type: Number, default: 0 },
         carbohidratos: { type: Number, default: 0 },
@@ -34,6 +62,34 @@ const IngredientSchema = new Schema<IIngredient>(
         fibra: { type: Number, default: 0 },
         azucar: { type: Number, default: 0 },
         sodio: { type: Number, default: 0 },
+        zinc: { type: Number, default: 0 },
+        humedad: { type: Number, default: 0 },
+        cenizas: { type: Number, default: 0 },
+        hdc: { type: Number, default: 0 },
+        lipidos: { type: Number, default: 0 },
+        acSaturados: { type: Number, default: 0 },
+        acMonoinsaturados: { type: Number, default: 0 },
+        acPoliinsaturados: { type: Number, default: 0 },
+        colesterol: { type: Number, default: 0 },
+        vitA: { type: Number, default: 0 },
+        vitC: { type: Number, default: 0 },
+        vitD: { type: Number, default: 0 },
+        vitE: { type: Number, default: 0 },
+        vitK: { type: Number, default: 0 },
+        vitB1: { type: Number, default: 0 },
+        vitB2: { type: Number, default: 0 },
+        niacina: { type: Number, default: 0 },
+        vitB6: { type: Number, default: 0 },
+        ac: { type: Number, default: 0 },
+        vitB12: { type: Number, default: 0 },
+        Folatos: { type: Number, default: 0 },
+        potasio: { type: Number, default: 0 },
+        calcio: { type: Number, default: 0 },
+        fosforo: { type: Number, default: 0 },
+        magnesio: { type: Number, default: 0 },
+        hierro: { type: Number, default: 0 },
+        cobre: { type: Number, default: 0 },
+        selenio: { type: Number, default: 0 },
         state: { type: Boolean, default: true },
     },
     { timestamps: true }

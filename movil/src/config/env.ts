@@ -1,3 +1,2 @@
-export const serverUrl = process.env.EXPO_BACKEND;
-export const port = process.env.EXPO_PORT;
-export const expoUrl = process.env.EXPO_URL;
+export const serverUrl: string = process.env.EXPO_BACKEND ?? '';
+export const port: number = +(process.env.EXPO_PORT ?? 4321);

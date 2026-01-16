@@ -13,7 +13,7 @@ export default function MealsList() {
     return (
         <ScrollView style={{ flex: 1, padding: 20, backgroundColor: '#f9f9f9' }}>
             <Text style={{ fontSize: 22, fontWeight: 'bold', marginBottom: 20 }}>
-                Meals
+                ilsta de comidas || MealsList 
             </Text>
             {meals.map((meal) => (
                 <MealCard
